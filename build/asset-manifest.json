@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c2bd4787.css",
+    "main.js": "/static/js/main.1b800bcf.js",
+    "static/media/HaridhamNJ-Gurupurnima-8-1024x570.jpg": "/static/media/HaridhamNJ-Gurupurnima-8-1024x570.738c44f19ed65490415b.jpg",
+    "static/media/haridham-canada.jpg": "/static/media/haridham-canada.f36c179a43ed74da22bd.jpg",
+    "static/media/harisumiran-logo.png": "/static/media/harisumiran-logo.67d2121d191fbb56a942.png",
+    "index.html": "/index.html",
+    "main.c2bd4787.css.map": "/static/css/main.c2bd4787.css.map",
+    "main.1b800bcf.js.map": "/static/js/main.1b800bcf.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c2bd4787.css",
+    "static/js/main.1b800bcf.js"
+  ]
+}
