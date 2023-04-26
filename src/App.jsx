@@ -4,11 +4,18 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import axios from 'axios'
 import Header from './component/Navbar/Header';
 import ImageCarousel from './component/carousel/carousel';
-import { collection, addDoc, getDocs, setDoc, doc, documentId } from "firebase/firestore";
+import { collection, addDoc, getDocs, setDoc, doc, documentId, Timestamp } from "firebase/firestore";
 import { db } from "./firebase";
 import React, { useState, useEffect, Component } from "react";
+import DatePickker from './DatePickker';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
+
 
 class App extends Component {
+
+    
 
     constructor() {
 
@@ -62,6 +69,9 @@ class App extends Component {
             firstName: event.target.value
         })
     }
+
+
+
     changemiddleName(event) {
         this.setState({
             middleName: event.target.value
@@ -92,10 +102,15 @@ class App extends Component {
             email: event.target.value
         })
     }
-    changebirthDate(event) {
+    changebirthDate(date) {
+        console.log(date);
+        let formattedTime = moment(date).format('dd MMMM yyyy');
         this.setState({
-            birthDate: event.target.value
+          
+            birthDate: date
         })
+
+        
     }
     changeimmigrationStatus(event) {
         this.setState({
@@ -158,12 +173,14 @@ class App extends Component {
         })
     }
 
+
+
     onSubmit(event) {
         event.preventDefault()
 
+        var today = Math.round((new Date()).getTime() / 1000);
 
-
-        const id = this.state.firstName+" "+this.state.lastName;
+        const id = this.state.firstName + " " + this.state.lastName+" "+today;
 
         const registered = {
             firstName: this.state.firstName,
@@ -190,15 +207,15 @@ class App extends Component {
 
         const addTodo = async (e) => {
             try {
-                const docRef=  await setDoc(doc(db, "YDS", id), {
+                const docRef = await setDoc(doc(db, "YDS", id), {
                     data: registered,
-                  });
-            //     const docRef = await setDoc((db, "todos","prashant"), {
-            //         data: registered,
-            //     });
-            //     docRef.
-            //    // document.getElementById("status").innerHTML = "Successfully Registered";
-                console.log("Document written.........."+documentId(docRef));
+                });
+                //     const docRef = await setDoc((db, "todos","prashant"), {
+                //         data: registered,
+                //     });
+                //     docRef.
+                //    // document.getElementById("status").innerHTML = "Successfully Registered";
+                console.log("Document written.........." + documentId(docRef));
             } catch (e) {
                 console.error("Error adding document: ", e);
             }
@@ -297,10 +314,28 @@ class App extends Component {
                                         className='form-control' /><br></br>
 
 
-                                    <input placeholder='BirthDate' type="date"
-                                        onChange={this.changebirthDate}
-                                        value={this.state.birthDate}
-                                        className='form-control form-group' /><br></br>
+
+                                    <DatePicker
+                                        placeholderText="Birth Date"
+
+                                        yearDropdownItemNumber={60}
+                                        showYearDropdown
+                                        scrollableYearDropdown
+                                        scrollableMonthYearDropdown
+                                        className='form-control form-group'
+                                        dateFormat="MMMM d, yyyy"
+                                       
+                                        onChange={date => {
+                                         
+                                            this.changebirthDate(date)
+                                        }}
+                                        selected={this.state.birthDate}
+                                       
+                                        disabledKeyboardNavigation
+                                        onFocus={e => e.target.blur()}
+                                    />
+                                    <br></br><br></br>
+
 
 
                                     <h3 className='heading1'>Status In Canada</h3><br></br>
